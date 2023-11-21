@@ -11,8 +11,11 @@ class PostsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-       $posts = DB::table('posts')->select('excerpt as summary', 'content as text')->get();
+    {                            // select is_published and then distinct them by boolean value (true or false)
+                                // so it will be just to rows with 0 and 1 
+       $posts = DB::table('posts')->select('is_published')
+       ->distinct()
+       ->get();
 
        ray($posts);
     }
