@@ -12,7 +12,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-       $posts = DB::table('posts')->select('*')->get();
+       $posts = DB::table('posts')->select('excerpt as summary', 'content as text')->get();
 
        ray($posts);
     }
