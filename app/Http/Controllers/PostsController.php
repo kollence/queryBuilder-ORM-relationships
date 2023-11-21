@@ -11,11 +11,12 @@ class PostsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
        $posts = DB::table('posts')
-       ->where('is_published', '=', 1)->first();
+       ->where('is_published', '=', 1)
+       ->value('min_to_read');
 
-       ray($posts->is_published);
+       ray($posts);
     }
 
     /**
