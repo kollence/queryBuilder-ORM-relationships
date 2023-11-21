@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
 
-            $table->id();
-
+            $table->id()->startingValue(100);
+            
             $table->string('title');
             $table->string('slug');
             $table->longText('content');
