@@ -13,25 +13,29 @@ class PostsController extends Controller
     public function index()
     {
        $posts = DB::table('posts')
-       // insert bulk of data in table by passing it as arrays in parent array
-        ->insert([
+       // insertOrIgnore() method that allows you to insert data into a DB table only if the row does not already exist.
+        ->insertOrIgnore([
             [
-                'user_id' => 4,
-                'title' => 'Post 1 First',
-                'slug' => 'post-1-first',
-                'content' => 'first from 2 in same time ',
-                'excerpt' => 'first from 2 in same time ',
+                'user_id' => 2,
+                'title' => 'Post 3 insertOrIgnore',
+                'slug' => 'post-3-insertOrIgnore',
+                'content' => 'first from 2 insertOrIgnore ',
+                'excerpt' => 'first from 2 insertOrIgnore ',
                 'is_published' => false,
-                'min_to_read' => 2,
+                'min_to_read' => 6,
+                'created_at'    => now(),
+                'updated_at'    => now(),
             ],
             [
-                'user_id' => 6,
-                'title' => 'Post 1 Second',
-                'slug' => 'post-1-second',
-                'content' => 'second from 2 in same time ',
-                'excerpt' => 'second from 2 in same time ',
+                'user_id' => 3,
+                'title' => 'Post 6 insertOrIgnore',
+                'slug' => 'post-6-insertOrIgnore',
+                'content' => 'second from 2 insertOrIgnore ',
+                'excerpt' => 'second from 2 insertOrIgnore ',
                 'is_published' => false,
-                'min_to_read' => 2,
+                'min_to_read' => 4,
+                'created_at'    => now(),
+                'updated_at'    => now(),
             ]
         ]);
         //will return true on stored
