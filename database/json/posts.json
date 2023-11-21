@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Post one json seeder",
+        "slug": "post-one-json-seeder",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nunc nec nibh efficitur interdum.",
+        "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing eli....",
+        "is_published": true,
+        "min_to_read": 6
+    },
+    {
+        "title": "Post two json seeder",
+        "slug": "post-two-json-seeder",
+        "content": "Two Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nunc nec nibh efficitur interdum.",
+        "excerpt": "Two Lorem ipsum dolor sit amet, consectetur adipiscing eli....",
+        "is_published": false,
+        "min_to_read": 3
+    }
+]
