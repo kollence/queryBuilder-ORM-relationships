@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
 
-            $table->bigIncrements('post_id')->startingValue(100);
-            
+            $table->id()->startingValue(100);
+
             $table->string('title');
             $table->string('slug');
             $table->longText('content');
