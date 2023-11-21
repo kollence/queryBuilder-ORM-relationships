@@ -15,6 +15,8 @@ return new class extends Migration
 
             $table->id()->startingValue(100);
 
+            $table->foreignId('user_id');
+            
             $table->string('title');
             $table->string('slug');
             $table->longText('content');
