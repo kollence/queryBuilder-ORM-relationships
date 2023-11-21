@@ -13,9 +13,9 @@ class PostsController extends Controller
     public function index()
     {
        $posts = DB::table('posts')
-       ->where('is_published', '=', 1)->get();
+       ->where('is_published', '=', 1)->first();
 
-       ray($posts);
+       ray($posts->is_published);
     }
 
     /**
