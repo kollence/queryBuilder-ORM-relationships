@@ -13,15 +13,26 @@ class PostsController extends Controller
     public function index()
     {
        $posts = DB::table('posts')
-       // insert data in table
+       // insert bulk of data in table by passing it as arrays in parent array
         ->insert([
-            'user_id' => 1,
-            'title' => 'Post 1',
-            'slug' => 'post-1',
-            'content' => 'Post 1 Body',
-            'excerpt' => 'Post 1 Body',
-            'is_published' => false,
-            'min_to_read' => 2,
+            [
+                'user_id' => 4,
+                'title' => 'Post 1 First',
+                'slug' => 'post-1-first',
+                'content' => 'first from 2 in same time ',
+                'excerpt' => 'first from 2 in same time ',
+                'is_published' => false,
+                'min_to_read' => 2,
+            ],
+            [
+                'user_id' => 6,
+                'title' => 'Post 1 Second',
+                'slug' => 'post-1-second',
+                'content' => 'second from 2 in same time ',
+                'excerpt' => 'second from 2 in same time ',
+                'is_published' => false,
+                'min_to_read' => 2,
+            ]
         ]);
         //will return true on stored
        dd($posts);
