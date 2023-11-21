@@ -12,6 +12,19 @@ class PostsController extends Controller
      */
     public function index()
     {   
+       // ray()->showQueries() will show SQL query to result of ray app
+       ray()->showQueries();
+       // it will look like this
+       /**  
+        *   select
+        *     `min_to_read`
+        *   from
+        *     `posts`
+        *   where
+        *     `is_published` = 1
+        *   limit
+        *     1
+        */
        $posts = DB::table('posts')
        ->where('is_published', '=', 1)
        ->value('min_to_read');
