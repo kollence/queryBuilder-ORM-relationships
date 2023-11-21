@@ -12,12 +12,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-       $posts = DB::table('posts')->select('is_published');
-                    // additionally add more columns to query result with addSelect()
-                    // $posts need to stay as query without ->get() method instead add it after addSelect
-       $added = $posts->addSelect('min_to_read')->get();
+       $posts = DB::table('posts')
+       ->where('is_published', '=', 1)->get();
 
-       ray($added);
+       ray($posts);
     }
 
     /**
