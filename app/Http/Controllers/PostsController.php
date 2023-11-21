@@ -11,25 +11,12 @@ class PostsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
-       // ray()->showQueries() will show SQL query to result of ray app
-       ray()->showQueries();
-       // it will look like this
-       /**  
-        *   select
-        *     `min_to_read`
-        *   from
-        *     `posts`
-        *   where
-        *     `is_published` = 1
-        *   limit
-        *     1
-        */
+    {
+        //find() needs just id, secund param is not required its for select column name
        $posts = DB::table('posts')
-       ->where('is_published', '=', 1)
-       ->value('min_to_read');
+       ->find(100, ['title', 'min_to_read']);
 
-       ray($posts);
+       dd($posts);
     }
 
     /**
