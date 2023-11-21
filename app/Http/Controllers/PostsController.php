@@ -12,7 +12,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        DB::table('posts');
+       $dd = DB::table('posts')->select('*');
     }
 
     /**
