@@ -11,13 +11,13 @@ class PostsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {                            // select is_published and then distinct them by boolean value (true or false)
-                                // so it will be just to rows with 0 and 1 
-       $posts = DB::table('posts')->select('is_published')
-       ->distinct()
-       ->get();
+    {
+       $posts = DB::table('posts')->select('is_published');
+                    // additionally add more columns to query result with addSelect()
+                    // $posts need to stay as query without ->get() method instead add it after addSelect
+       $added = $posts->addSelect('min_to_read')->get();
 
-       ray($posts);
+       ray($added);
     }
 
     /**
