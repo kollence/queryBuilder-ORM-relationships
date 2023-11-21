@@ -12,11 +12,29 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //find() needs just id, secund param is not required its for select column name
+        //pluck() will take just values from given column and return it as array
        $posts = DB::table('posts')
-       ->find(100, ['title', 'min_to_read']);
+       ->pluck('title');
 
        dd($posts);
+       //result
+       /**
+        * Illuminate\Support\Collection {#1342 ▼ // app\Http\Controllers\PostsController.php:19
+        *   #items: array:10 [▼
+        *        0 => "Aliquid quis dicta expedita reprehenderit maiores."
+        *        1 => "Dolor enim amet sapiente."
+        *        2 => "Est quidem recusandae in sed maxime enim."
+        *        3 => "Occaecati est animi ullam eligendi veritatis."
+        *        4 => "Quasi aspernatur quia sed quaerat quidem."
+        *        5 => "Reprehenderit fugit nesciunt et et harum alias."
+        *        6 => "Sequi est consequuntur error unde."
+        *        7 => "Sint tempore rerum ipsum deleniti."
+        *        8 => "Vel omnis saepe suscipit et facilis voluptatum."
+        *        9 => "Velit omnis aut corrupti sed ad doloremque."
+        *    ]
+        */
+
+       
     }
 
     /**
