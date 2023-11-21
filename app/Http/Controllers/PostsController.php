@@ -14,7 +14,7 @@ class PostsController extends Controller
     {
        $posts = DB::table('posts')->select('*')->get();
 
-       dd($posts);
+       ray($posts);
     }
 
     /**
