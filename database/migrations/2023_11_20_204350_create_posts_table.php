@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->id()->startingValue(100);
 
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained('users');
             
             $table->string('title');
             $table->string('slug');
