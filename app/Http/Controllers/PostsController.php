@@ -12,13 +12,21 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $incrementFor = 3;
+        // updateOrInsert() update an existing record or insert a new one if it doesn't exist
+        // The updateOrInsert method will attempt to locate a matching database record using the first argument's column and value pairs.
+        // If the record exists, it will be updated with the values in the second argument
         $posts = DB::table('posts')
-            ->where('id','>=', 161) // Condition for set of result and each will increment min_to_read by 2
-            ->incrementEach([
-                'min_to_read' => $incrementFor,
-                'votes' => 1, // with field (that exists in db) just to count number of votes by 1
-            ]);
+            ->updateOrInsert(
+                [ // The first argument is the column and value pairs that will be used to find a matching record.
+                    'title' => 'New title3', //if this not match it will add new record
+                    'slug' => 'new-title3',  //if this not match it will add new record
+                    'user_id' => 1           //(not empty)
+                ],
+                [ // The second argument is the values that will be inserted if the record doesn't exist.
+                    'content' => 'It matched title and slug so it will change [content & excerpt]',
+                    'excerpt' => 'aaaaaaaa'
+                ]
+            );
         // return number of rows updated
         dd($posts);
     }
