@@ -14,9 +14,12 @@ class PostsController extends Controller
     {
         $incrementFor = 3;
         $posts = DB::table('posts')
-            ->where('id', 189)
-            ->orWhere('id', 161)
-            ->increment('min_to_read', $incrementFor); // optionally passed wanted increment amount
+            ->where('id','>=', 161) // Condition for set of result and each will increment min_to_read by 2
+            ->incrementEach([
+                'min_to_read' => $incrementFor,
+                'votes' => 1, // with field (that exists in db) just to count number of votes by 1
+            ]);
+        // return number of rows updated
         dd($posts);
     }
 
