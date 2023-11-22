@@ -16,11 +16,7 @@ class PostsController extends Controller
         $posts = DB::table('posts')
             ->where('id', 189)
             ->orWhere('id', 161)
-            ->update([
-                'content' => 'Simple update(4) to update record where(id is 189) & orWhere(id is 161)',
-                'excerpt' => 'Simple update(4)',
-            ]);
-        //will return number of updated rows =2 (with id of 189 & 161)
+            ->increment('min_to_read'); // default by 1
         dd($posts);
     }
 
