@@ -12,20 +12,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //If the table has an auto-incrementing id, use the insertGetId method to insert a record and then retrieve the ID:
+        
         $posts = DB::table('posts')
-            ->insertGetId([
-                    'user_id' => 10,
-                    'title' => 'Insert Get Id', 
-                    'slug' => 'insert-get-id',
-                    'content' => 'Inertuje novi rekord i vraca njegov TEK KREIRAN id',
-                    'excerpt' => 'first from / Inertuje novi rekord i vraca njegov TEK KREIRAN id',
-                    'is_published' => false,
-                    'min_to_read' => 6,
-            ]
-        );
-        //will return ID of inserted new record
-        dd($posts);
+            ->where('id', 189)
+            ->update();
+
     }
 
     /**
