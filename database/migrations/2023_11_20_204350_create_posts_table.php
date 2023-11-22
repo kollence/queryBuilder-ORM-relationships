@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-
+            // WORK WITH PRIMARY KEYS
             $table->id()->startingValue(100);
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('title');
