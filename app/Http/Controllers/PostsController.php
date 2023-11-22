@@ -12,11 +12,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-        
+        $incrementFor = 3;
         $posts = DB::table('posts')
             ->where('id', 189)
             ->orWhere('id', 161)
-            ->increment('min_to_read'); // default by 1
+            ->increment('min_to_read', $incrementFor); // optionally passed wanted increment amount
         dd($posts);
     }
 
