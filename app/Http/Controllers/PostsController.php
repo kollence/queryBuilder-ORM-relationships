@@ -15,8 +15,14 @@ class PostsController extends Controller
         
         $posts = DB::table('posts')
             ->where('id', 189)
-            ->update();
-
+            ->update([
+                'title' => 'New Title',// It will not care on database constrains for unique [title & slug]
+                'slug' => 'new-title',
+                'content' => 'Simple update(3) to update record where id is 189',
+                'excerpt' => 'Simple update(3)',
+            ]);
+        //will return number of updated rows =1
+        dd($posts);
     }
 
     /**
