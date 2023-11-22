@@ -15,13 +15,12 @@ class PostsController extends Controller
         
         $posts = DB::table('posts')
             ->where('id', 189)
+            ->orWhere('id', 161)
             ->update([
-                'title' => 'New Title',// It will not care on database constrains for unique [title & slug]
-                'slug' => 'new-title',
-                'content' => 'Simple update(3) to update record where id is 189',
-                'excerpt' => 'Simple update(3)',
+                'content' => 'Simple update(4) to update record where(id is 189) & orWhere(id is 161)',
+                'excerpt' => 'Simple update(4)',
             ]);
-        //will return number of updated rows =1
+        //will return number of updated rows =2 (with id of 189 & 161)
         dd($posts);
     }
 
