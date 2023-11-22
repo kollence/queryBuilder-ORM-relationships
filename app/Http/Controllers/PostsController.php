@@ -18,27 +18,28 @@ class PostsController extends Controller
             [
                 [
                     'user_id' => 2,
-                    'title' => 'X', // No change // Title AND/OR slug not changed so it will update existing record 
-                    'slug' => 'x',  // No change // Slug AND/OR title not changed so it will update existing record 
-                    'content' => 'Update se / Updating fields', // just this will be updated because its changed but value of title & slug are same & unique
+                    'title' => 'X', 
+                    'slug' => 'x',
+                    'content' => 'Update se / Updating fields',
                     'excerpt' => 'first from / Updating fields',
                     'is_published' => false,
                     'min_to_read' => 6,
                 ],
                 [
-                    'user_id' => 3,
-                    'title' => 'Y 2', // Changed // Title AND/OR slug are changed from Y to Y 2 so it will add new record 
-                    'slug' => 'y-2',  // Changed // Slug AND/OR title are changed from y to y-2 so it will add new record
-                    'content' => 'Create se / Created new record', // Everything will be created as new record because [Title, Slug] are not unique anymore
-                    'excerpt' => 'first from / Created new record',
+                    'user_id' => 4,
+                    'title' => 'Y 4',
+                    'slug' => 'y-C',
+                    'content' => 'Up? eate se / Created new record',
+                    'excerpt' => 'Apdejt from / Created new record',
                     'is_published' => false,
                     'min_to_read' => 6,
                 ]
             ], 
-            // second argument lists the column(s) that uniquely identify records within the associated table
-            ['title', 'slug'] // (Act like its unique identifier)
+            // ALREADY KNOWS THAT THIS FIELD NEED TO BE UNIQUE, SO WE ACT LIKE PRIMARY KEY
+            // IT KNOWS BECAUSE ITS SET IN MIGRATION FILE AS $table->unique(['title', 'slug'])
+            ['title, slug'], // (Act like its unique identifier)
             // third and final argument is an array of column(s) that should be updated if a matching record already exists in the database
-            //['user_id', 'content', 'excerpt', 'is_published', 'min_to_read']
+            // ['title', 'slug', 'excerpt']
         );
         //will return 0 if nothing to add or update or number of records updated
         dd($posts);
