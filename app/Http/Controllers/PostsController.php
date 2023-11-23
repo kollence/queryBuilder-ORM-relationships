@@ -12,11 +12,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // count() counts everything or any given condition
+        // sum() calculates the sum of the values in a given column
         $posts = DB::table('posts')
-        ->where('is_published', true) // count only published posts
-        ->count(); // count num of rows
-        // return value of counted records
+        ->sum('min_to_read'); // sums all values from column `min_to_read`
+        // return value of calculation
         dd($posts);
     }
 
