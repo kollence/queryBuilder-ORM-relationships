@@ -15,7 +15,7 @@ class PostsController extends Controller
         // whereNot() adds a basic where clause to the query
         // but excludes condition that is passed to it
         $posts = DB::table('posts')
-        ->whereNot('is_published', false) // give me all just not is_published = false
+        ->whereNot('min_to_read', '>', 5) // give me posts that are less then 5 min_to_read
         ->get(); // get() it needs to give back an array
         // return array of posts where is_published is true
         dd($posts);
