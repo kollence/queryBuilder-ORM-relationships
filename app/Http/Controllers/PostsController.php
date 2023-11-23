@@ -12,10 +12,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // sum() calculates the sum of the values in a given column
+        // avg() calculate the average value of a given column
         $posts = DB::table('posts')
-        ->sum('min_to_read'); // sums all values from column `min_to_read`
-        // return value of calculation
+        ->avg('min_to_read'); // calculate average from all `min_to_read` rows
+        // return average number of column values as (string) decimal
         dd($posts);
     }
 
