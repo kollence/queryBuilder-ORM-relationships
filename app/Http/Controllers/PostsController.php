@@ -14,8 +14,8 @@ class PostsController extends Controller
     {
         // delete() wanted record(s)
         $posts = DB::table('posts')
-        ->where('id', 192) // selected post by id
-        ->delete(); // delete record
+        ->whereBetween('id', [171, 191]) // selected posts by id
+        ->delete(); // delete records
         // return number of deleted records
         dd($posts);
     }
