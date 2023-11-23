@@ -12,13 +12,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // delete() wanted record(s)
+        // truncate() will delete whole table. That is not recommended!!!
         $posts = DB::table('posts')
-        ->where('id', 189)            // selected posts by id
-                                      // AND
-        ->where('title', 'New title') // selected posts by title
-        ->delete(); // delete records
-        // return number of deleted records
+        ->truncate(); // delete all from table posts
+        // return null when table values are empty
         dd($posts);
     }
 
