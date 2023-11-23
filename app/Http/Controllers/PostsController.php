@@ -14,7 +14,8 @@ class PostsController extends Controller
     {
         // count() counts everything or any given condition
         $posts = DB::table('posts')
-        ->count(); // count num of rows for all posts
+        ->where('is_published', true) // count only published posts
+        ->count(); // count num of rows
         // return value of counted records
         dd($posts);
     }
