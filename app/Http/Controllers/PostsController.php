@@ -12,11 +12,12 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // max() take the maximum value of a given column
+        // min() take minimum value from specific column or given result set
         $posts = DB::table('posts')
-        ->where('min_to_read', '<', 8) // filter to wanted set
-        ->max('min_to_read'); // calculate maximum, biggest value from `min_to_read` row
-        // return maximum number value
+        ->where('user_id', '!=', 19) // filter to wanted set
+        ->where('user_id', '!=', 12) // filter to wanted set
+        ->min('min_to_read'); // calculate minimum, lowest value from `min_to_read` row
+        // return minimum number value
         dd($posts);
     }
 
