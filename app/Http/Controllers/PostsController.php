@@ -14,6 +14,7 @@ class PostsController extends Controller
     {
         // max() take the maximum value of a given column
         $posts = DB::table('posts')
+        ->where('min_to_read', '<', 8) // filter to wanted set
         ->max('min_to_read'); // calculate maximum, biggest value from `min_to_read` row
         // return maximum number value
         dd($posts);
