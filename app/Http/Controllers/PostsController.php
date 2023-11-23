@@ -14,7 +14,8 @@ class PostsController extends Controller
     {
         // avg() calculate the average value of a given column
         $posts = DB::table('posts')
-        ->avg('min_to_read'); // calculate average from all `min_to_read` rows
+        ->where('min_to_read', '<', '8') // filter by `min_to_read` less than 8
+        ->avg('min_to_read'); // calculate average from `min_to_read` rows
         // return average number of column values as (string) decimal
         dd($posts);
     }
