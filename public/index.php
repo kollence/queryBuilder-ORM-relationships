@@ -1,3 +1,8 @@
+<style>
+    body{
+        background-color: gray;
+    }
+</style>
 <?php
 
 use Illuminate\Contracts\Http\Kernel;

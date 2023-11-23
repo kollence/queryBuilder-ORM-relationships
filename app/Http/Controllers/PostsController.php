@@ -12,14 +12,19 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')
-        ->whereBetween('min_to_read', [2,10]) // column values that retrieve record that ARE from given range of values
-        ->whereNotBetween('min_to_read', [4,6]) // column values that retrieve record that ARE NOT from given range of values
-        ->get();
+        // If all transactions are done, data will be changed in every query that it needs to
+        // but if it fails in any of multiple queries, data will not be updated and
+        // every thing will be back to previous state `undo`
+        DB::transaction(function () {
 
-        dd($posts);
-        
-        
+            $moneyForTransaction = 100;
+
+            $fromMyAccQuery1 = DB::table('users')->where('id', 1)->decrement('balance', $moneyForTransaction);
+
+            $toYoursAccQuery2 = DB::table('users')->where('id', 2)->increment('balance', $moneyForTransaction); // if this for some reason dont succeed 
+                                                                                                                // $fromMyAccQuery1 will undo and it will not decrement
+                                                                                                                // for $moneyForTransaction
+        });
     }
 
     /**
