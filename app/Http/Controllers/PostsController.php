@@ -12,17 +12,22 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // Without pessimistic locking danger of uncontrolled entering of data and transactions at any time and overwrite each other changes 
-        // without knowing witch is the last one
+        // With pessimistic locking it ensures that only one data can be insert at the time
+        // and data remains consistent and accurate
         DB::transaction(function () {
 
             $moneyForTransaction = 100;
 
-            $fromMyAccQuery1 = DB::table('users')->where('id', 1)->decrement('balance', $moneyForTransaction); // if this user call action uncontrollably 
-                                                                                                               // they will overwrite each other changes 
+            $fromMyAccQuery1 = DB::table('users')
+            ->where('id', 1)
+            ->lockForUpdate() //LOCK THE SELECTED ROW UNTIL TRANSACTION IS COMPLETED
+                             // witch will prevent other users from modify same record
+            ->decrement('balance', $moneyForTransaction);  
 
-            $toYoursAccQuery2 = DB::table('users')->where('id', 2)->increment('balance', $moneyForTransaction); // if this user call action uncontrollably
-        });                                                                                                     // they will overwrite each other changes
+            $toYoursAccQuery2 = DB::table('users') // user:$toYoursAccQuery2 cant modify balance field and he needs to wait 
+            ->where('id', 2)                       //  while user:$fromMyAccQuery1 transaction is completed 
+            ->increment('balance', $moneyForTransaction); 
+        });
     }
 
     /**
