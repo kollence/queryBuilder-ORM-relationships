@@ -12,14 +12,18 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // whereNot() adds a basic where clause to the query
-        // but excludes condition that is passed to it
-        $posts = DB::table('posts')
-        ->where('min_to_read', '>', 5) // give me posts that are more then 5 min_to_read    [loosely it will return any matching result]
-        ->orWhereNot('is_published', false) // or where not is_published = false            [loosely it will return any matching result]
-        ->get(); // get() it needs to give back an array
-        // return array of posts where 'min_to_read', '>', 5 || is_published is true
-        dd($posts);                               // loosely || return if any of the condition is true
+        if(DB::table('posts')->where('min_to_read', '<', 5)->exists()){
+
+            $shortStoriesNumber = DB::table('posts')->where('min_to_read', '<', 5)->count();
+            
+            dd('short stories to read ' .$shortStoriesNumber);
+
+        }else{
+
+            dd('no short stories all are above 5 min');
+        }
+        
+        
     }
 
     /**
