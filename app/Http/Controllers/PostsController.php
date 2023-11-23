@@ -12,15 +12,15 @@ class PostsController extends Controller
      */
     public function index()
     {
-        if(DB::table('posts')->where('min_to_read', '<', 5)->exists()){
-
-            $shortStoriesNumber = DB::table('posts')->where('min_to_read', '<', 5)->count();
-            
-            dd('short stories to read ' .$shortStoriesNumber);
-
-        }else{
+        if(DB::table('posts')->where('min_to_read', '<', 5)->doesntExist()){
 
             dd('no short stories all are above 5 min');
+            
+        }else{
+            
+            $shortStoriesNumber = DB::table('posts')->where('min_to_read', '<', 5)->count();
+
+            dd('short stories to read ' .$shortStoriesNumber);
         }
         
         
