@@ -12,10 +12,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // truncate() will delete whole table. That is not recommended!!!
+        // count() counts everything or any given condition
         $posts = DB::table('posts')
-        ->truncate(); // delete all from table posts
-        // return null when table values are empty
+        ->count(); // count num of rows for all posts
+        // return value of counted records
         dd($posts);
     }
 
