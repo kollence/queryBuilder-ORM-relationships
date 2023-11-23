@@ -12,23 +12,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // updateOrInsert() update an existing record or insert a new one if it doesn't exist
-        // The updateOrInsert method will attempt to locate a matching database record using the first argument's column and value pairs.
-        // If the record exists, it will be updated with the values in the second argument
+        // delete() wanted record(s)
         $posts = DB::table('posts')
-            ->updateOrInsert(
-                [ // The first argument is the column and value pairs that will be used to find a matching record.
-                    'title' => 'It wont find', //if this not match it will add new record
-                    'slug' => 'it-wont-find',  //if this not match it will add new record
-                    'user_id' => 2           //(not empty) for inserting case it needs to have value and not be (null, empty)
-                                             // because of migration and setting up table fields
-                ],
-                [ // The second argument is the values that will be inserted if the record doesn't exist.
-                    'content' => 'It doesn`t matched title and slug so it will insert everything',
-                    'excerpt' => 'insert array arg 1 & 2. 1[ title slug user_id ], 2[ content excerpt ]'
-                ]
-            );
-        // return true or false if row are updated
+        ->where('id', 192) // selected post by id
+        ->delete(); // delete record
+        // return number of deleted records
         dd($posts);
     }
 
