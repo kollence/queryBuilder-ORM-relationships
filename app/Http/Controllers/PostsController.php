@@ -12,16 +12,12 @@ class PostsController extends Controller
      */
     public function index()
     {
-        if(DB::table('posts')->where('min_to_read', '<', 5)->doesntExist()){
+        $posts = DB::table('posts')
+        ->whereBetween('min_to_read', [2,10]) // column values that retrieve record that ARE from given range of values
+        ->whereNotBetween('min_to_read', [4,6]) // column values that retrieve record that ARE NOT from given range of values
+        ->get();
 
-            dd('no short stories all are above 5 min');
-            
-        }else{
-            
-            $shortStoriesNumber = DB::table('posts')->where('min_to_read', '<', 5)->count();
-
-            dd('short stories to read ' .$shortStoriesNumber);
-        }
+        dd($posts);
         
         
     }
