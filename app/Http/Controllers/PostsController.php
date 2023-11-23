@@ -12,12 +12,12 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // min() take minimum value from specific column or given result set
+        // whereNot() adds a basic where clause to the query
+        // but excludes condition that is passed to it
         $posts = DB::table('posts')
-        ->where('user_id', '!=', 19) // filter to wanted set
-        ->where('user_id', '!=', 12) // filter to wanted set
-        ->min('min_to_read'); // calculate minimum, lowest value from `min_to_read` row
-        // return minimum number value
+        ->whereNot('is_published', false) // give me all just not is_published = false
+        ->get(); // get() it needs to give back an array
+        // return array of posts where is_published is true
         dd($posts);
     }
 
