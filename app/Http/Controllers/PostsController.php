@@ -18,16 +18,17 @@ class PostsController extends Controller
         $posts = DB::table('posts')
             ->updateOrInsert(
                 [ // The first argument is the column and value pairs that will be used to find a matching record.
-                    'title' => 'New title3', //if this not match it will add new record
-                    'slug' => 'new-title3',  //if this not match it will add new record
-                    'user_id' => 1           //(not empty)
+                    'title' => 'It wont find', //if this not match it will add new record
+                    'slug' => 'it-wont-find',  //if this not match it will add new record
+                    'user_id' => 2           //(not empty) for inserting case it needs to have value and not be (null, empty)
+                                             // because of migration and setting up table fields
                 ],
                 [ // The second argument is the values that will be inserted if the record doesn't exist.
-                    'content' => 'It matched title and slug so it will change [content & excerpt]',
-                    'excerpt' => 'aaaaaaaa'
+                    'content' => 'It doesn`t matched title and slug so it will insert everything',
+                    'excerpt' => 'insert array arg 1 & 2. 1[ title slug user_id ], 2[ content excerpt ]'
                 ]
             );
-        // return number of rows updated
+        // return true or false if row are updated
         dd($posts);
     }
 
