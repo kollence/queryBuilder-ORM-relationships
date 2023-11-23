@@ -12,19 +12,17 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // If all transactions are done, data will be changed in every query that it needs to
-        // but if it fails in any of multiple queries, data will not be updated and
-        // every thing will be back to previous state `undo`
+        // Without pessimistic locking danger of uncontrolled entering of data and transactions at any time and overwrite each other changes 
+        // without knowing witch is the last one
         DB::transaction(function () {
 
             $moneyForTransaction = 100;
 
-            $fromMyAccQuery1 = DB::table('users')->where('id', 1)->decrement('balance', $moneyForTransaction);
+            $fromMyAccQuery1 = DB::table('users')->where('id', 1)->decrement('balance', $moneyForTransaction); // if this user call action uncontrollably 
+                                                                                                               // they will overwrite each other changes 
 
-            $toYoursAccQuery2 = DB::table('users')->where('id', 2)->increment('balance', $moneyForTransaction); // if this for some reason dont succeed 
-                                                                                                                // $fromMyAccQuery1 will undo and it will not decrement
-                                                                                                                // for $moneyForTransaction
-        });
+            $toYoursAccQuery2 = DB::table('users')->where('id', 2)->increment('balance', $moneyForTransaction); // if this user call action uncontrollably
+        });                                                                                                     // they will overwrite each other changes
     }
 
     /**
