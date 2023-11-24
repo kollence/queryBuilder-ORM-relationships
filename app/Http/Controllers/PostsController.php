@@ -12,14 +12,12 @@ class PostsController extends Controller
      */
     public function index()
     {   
-        // lazyById() LAZY LOAD BUT JUST SINGLE RECORD by its id.
-        // lazyById() fetch data from DB ONLY WHEN ITS ACCESSED
+        // selectRaw() is method to use raw sql query for columns
         $posts = DB::table('posts')
-        ->where('id', 1009)
-        ->lazyById() // Will contain a lazy collection instance that will fetch data from DB ONLY WHEN ITS ACCESSED.
+        ->selectRaw('sum(min_to_read) as all_time_to_read') // sum() avg() count()...
         ->first();
 
-        dd($posts); // return single record by id
+        dd($posts); // return single record
     }
 
     /**
