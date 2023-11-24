@@ -11,7 +11,9 @@ class PostsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   //GOOD FOR PROCESS DATA RETURNED FROM QUERY 
+        //useful for performing calculation, filtering data, or transforming data in different format
+        
         // chunk() Chunking large set of data. Retrieves data in smaller & more manageable set.
         // chunking second param callback function can be use for ANY PROCESSING OF DATA THAT YOU WANT
         // BROWSER will load all time till the last chunk of data is not processed
