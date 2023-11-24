@@ -14,7 +14,7 @@ class PostsController extends Controller
     {   
         // whereRaw() is method to use raw sql query for WHERE condition
         $posts = DB::table('posts')
-        ->whereRaw('created_at > NOW() - INTERVAL 1 DAY') // raw SQL for WHERE created_at > NOW() - INTERVAL 1 DAY
+        ->whereRaw('id BETWEEN 100 AND 200 AND (id < 103 OR id > 105)') // raw SQL for WHERE id BETWEEN 100 AND 200 AND (id < 103 OR id > 105)
         ->get();
 
         dd($posts); // return collection
