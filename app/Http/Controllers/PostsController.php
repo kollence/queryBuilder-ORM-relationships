@@ -12,20 +12,20 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // With pessimistic locking it ensures that only one data can be insert at the time
-        // and data remains consistent and accurate
+        // sharedLock() query builder is used to apply a shared lock to the rows that are being selected
+        // This lock prevents other database connections from modifying the rows until the transaction is committed or rolled back.
         DB::transaction(function () {
 
-            $moneyForTransaction = 100;
+            $moneyForTransaction = 1000;
 
             $fromMyAccQuery1 = DB::table('users')
-            ->where('id', 1)
-            ->lockForUpdate() //LOCK THE SELECTED ROW UNTIL TRANSACTION IS COMPLETED
-                             // witch will prevent other users from modify same record
+            ->where('balance', '<', 5)
+            ->sharedLock() // shared lock is applied to the rows in the 'users' table that meet the condition where the 'balance' < '5'.
+                           // This means that other database connections can read the rows, but they cannot modify them until the lock is released.
             ->decrement('balance', $moneyForTransaction);  
 
             $toYoursAccQuery2 = DB::table('users') // user:$toYoursAccQuery2 cant modify balance field and he needs to wait 
-            ->where('id', 2)                       //  while user:$fromMyAccQuery1 transaction is completed 
+            ->where('balance', '>=', 5)                       //  while user:$fromMyAccQuery1 transaction is completed 
             ->increment('balance', $moneyForTransaction); 
         });
     }
