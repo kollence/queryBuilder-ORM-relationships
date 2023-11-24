@@ -18,10 +18,17 @@ class PostsController extends Controller
         // LazyCollection When you iterate over the lazy collection, the underlying query is executed in chunks, loading only a portion of the results into memory at a time
         $posts = DB::table('posts')
         ->orderByDesc('id')
-        ->lazy();
+        ->lazy() // ACTING LIKE REGULAR COLLECTION. so you can perform any of methods like in regular collection
+        ->each(function($post){ // with each() you dont have to use foreach..
+            echo 'post with id: ' . $post->id . '. Reading time: ' . $post->min_to_read . '<br>';
+        });
+        // // iterate through the lazy collection
+        // foreach($posts as $post)
+        // {
+        //     echo $post->title . '<br>'; // return 1000 records
+        // }
 
-
-        dd($posts); // return Illuminate\Support\LazyCollection
+        // dd($posts); // return Illuminate\Support\LazyCollection
                     // with default chunk of 1000 records (->source->use->$chunkSize = 1000)
     }
 
