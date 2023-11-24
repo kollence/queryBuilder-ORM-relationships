@@ -12,22 +12,22 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // sharedLock() query builder is used to apply a shared lock to the rows that are being selected
-        // This lock prevents other database connections from modifying the rows until the transaction is committed or rolled back.
-        DB::transaction(function () {
-
-            $moneyForTransaction = 1000;
-
-            $fromMyAccQuery1 = DB::table('users')
-            ->where('balance', '<', 5)
-            ->sharedLock() // shared lock is applied to the rows in the 'users' table that meet the condition where the 'balance' < '5'.
-                           // This means that other database connections can read the rows, but they cannot modify them until the lock is released.
-            ->decrement('balance', $moneyForTransaction);  
-
-            $toYoursAccQuery2 = DB::table('users') // user:$toYoursAccQuery2 cant modify balance field and he needs to wait 
-            ->where('balance', '>=', 5)                       //  while user:$fromMyAccQuery1 transaction is completed 
-            ->increment('balance', $moneyForTransaction); 
+        // chunk() Chunking large set of data. Retrieves data in smaller & more manageable set.
+        // chunking second param callback function can be use for ANY PROCESSING OF DATA THAT YOU WANT
+        // BROWSER will load all time till the last chunk of data is not processed
+        // BETTER THEN PAGINATE = (paginate retrieve everything from database and then chunk result in pages)
+        // BETTER FOR PERFORMANCE
+        $posts = DB::table('posts')
+        ->orderByDesc('id')
+        ->chunk(100, function($posts) { // param 1: number of chunked rows. param 2: callback function receive num of chunked rows
+                                      //once call back are finished processing it will move to next coming chunked set
+                                      //running till last chunk is loaded
+            foreach($posts as $post){
+                dump($post); //DUMP() a post so you could watch process and not killing it
+            }
         });
+
+        
     }
 
     /**
