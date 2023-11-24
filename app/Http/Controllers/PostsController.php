@@ -12,13 +12,12 @@ class PostsController extends Controller
      */
     public function index()
     {   
-        // selectRaw() is method to use raw sql query for columns
+        // whereRaw() is method to use raw sql query for WHERE condition
         $posts = DB::table('posts')
-        ->selectRaw('sum(min_to_read) as all_time_to_read') // sum() avg() count()...
-        ->whereRaw('is_published = true') // raw SQL for WHERE is_published = true
-        ->first();
+        ->whereRaw('created_at > NOW() - INTERVAL 1 DAY') // raw SQL for WHERE created_at > NOW() - INTERVAL 1 DAY
+        ->get();
 
-        dd($posts); // return single record
+        dd($posts); // return collection
     }
 
     /**
