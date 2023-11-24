@@ -15,6 +15,7 @@ class PostsController extends Controller
         // selectRaw() is method to use raw sql query for columns
         $posts = DB::table('posts')
         ->selectRaw('sum(min_to_read) as all_time_to_read') // sum() avg() count()...
+        ->whereRaw('is_published = true') // raw SQL for WHERE is_published = true
         ->first();
 
         dd($posts); // return single record
