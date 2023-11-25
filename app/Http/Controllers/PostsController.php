@@ -22,8 +22,8 @@ class PostsController extends Controller
         
         // Second column: total_posts
         // COUNT(*) counts all rows in the table and storing result in total_posts
-        ->groupBy('posts_creation_day')
-        // GROUP BY groups the results by the First column: posts_creation_day 24h interval
+        ->groupByRaw('posts_creation_day')
+        // GROUP BY RAW accepts raw SQL for query string for `GROUP BY`
         ->get();
 
         dd($posts); // return (array) of grouped results with given fields: `posts_creation_day`, `total_posts`
