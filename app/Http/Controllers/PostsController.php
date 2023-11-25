@@ -13,16 +13,11 @@ class PostsController extends Controller
     
     public function index()
     {   
-        $fullTextOfColumn = 'Quidem nemo veritatis possimus laudantium odit.';
-        // $posts = DB::table('posts')
-        // ->select('title', 'content', 'excerpt') // Select the columns you need
-        // ->whereRaw("MATCH(title, content, excerpt) AGAINST(? IN BOOLEAN MODE)", [$fullTextOfColumn])
-        // ->get();
         $posts = DB::table('posts')
-        ->whereFullText('content', $fullTextOfColumn)
+        ->orderBy('created_at', 'desc') // default is ASC
         ->get();
-
-        dd($posts); // return 
+        
+        dd($posts); // return collection ordered by column `created_at` DESC 
     }
 
     /**
