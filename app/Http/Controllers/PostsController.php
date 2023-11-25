@@ -13,7 +13,7 @@ class PostsController extends Controller
     public function index()
     {   
         // I want to take average from column min_to_read and group them by users that have created that posts
-        // use the DATE_ADD and DATE_FORMAT functions in MySQL to create groups based on 24-hour intervals.
+        // use raw SQL query add AVG for min_to_read column with alias average_time_to_read
         $posts = DB::table('posts')
         ->select("user_id", DB::raw('AVG(min_to_read) as average_time_to_read')) // select() accepts params and for raw sql query you need to pass DB::raw()
         // First column: user_id
