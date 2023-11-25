@@ -12,21 +12,19 @@ class PostsController extends Controller
      */
     public function index()
     {   
-        // I want to take all posts but group them by day of creation, `created_at`. but group them by 24h apart
-        // use the DATE_ADD and DATE_FORMAT functions in MySQL to create groups based on 24-hour intervals.
+        // I want to take average from column min_to_read and group them by users that have created that posts
+        // use raw SQL query add AVG for min_to_read column with alias average_time_to_read
         $posts = DB::table('posts')
-        ->selectRaw("DATE_FORMAT(DATE_ADD(created_at, INTERVAL 24 HOUR), '%Y-%m-%d %H:00:00') AS posts_creation_day, COUNT(*) AS total_posts") // select() accepts params and not raw sql query
-        // First column: posts_creation_day
-        // DATE_ADD(created_at, INTERVAL 24 HOUR) adds a 24-hour offset to the created_at timestamp
-        // DATE_FORMAT(..., '%Y-%m-%d %H:00:00') formats the adjusted timestamp to include only the year, month, day, and hour
-        
-        // Second column: total_posts
-        // COUNT(*) counts all rows in the table and storing result in total_posts
-        ->groupByRaw('posts_creation_day')
+        ->select("user_id", DB::raw('AVG(min_to_read) as average_time_to_read')) // select() accepts params and for raw sql query you need to pass DB::raw()
+        // First column: user_id
+        // Second column: average_time_to_read
+        // DB::raw raw SQL to take AVG from column min_to_read
+
+        ->groupByRaw('user_id')
         // GROUP BY RAW accepts raw SQL for query string for `GROUP BY`
         ->get();
 
-        dd($posts); // return (array) of grouped results with given fields: `posts_creation_day`, `total_posts`
+        dd($posts); // return (array) of grouped results with given fields: (int)`user_id`, (float)`average_time_to_read`
     }
 
     /**
