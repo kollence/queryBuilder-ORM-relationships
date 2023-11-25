@@ -12,14 +12,21 @@ class PostsController extends Controller
      */
     public function index()
     {   
-        // havingRaw() is method to add raw sql query for HAVING condition
+        // I want to take all posts but group them by day of creation, `created_at`. but group them by 24h apart
+        // use the DATE_ADD and DATE_FORMAT functions in MySQL to create groups based on 24-hour intervals.
         $posts = DB::table('posts')
-        ->select('user_id', DB::raw('SUM(min_to_read) as total_time')) // select() accepts params and not raw sql query
-        ->groupBy('user_id')
-        ->havingRaw('SUM(min_to_read) < 8') // HAVING condition `SUM(min_to_read) < 8`
+        ->selectRaw("DATE_FORMAT(DATE_ADD(created_at, INTERVAL 24 HOUR), '%Y-%m-%d %H:00:00') AS posts_creation_day, COUNT(*) AS total_posts") // select() accepts params and not raw sql query
+        // First column: posts_creation_day
+        // DATE_ADD(created_at, INTERVAL 24 HOUR) adds a 24-hour offset to the created_at timestamp
+        // DATE_FORMAT(..., '%Y-%m-%d %H:00:00') formats the adjusted timestamp to include only the year, month, day, and hour
+        
+        // Second column: total_posts
+        // COUNT(*) counts all rows in the table and storing result in total_posts
+        ->groupBy('posts_creation_day')
+        // GROUP BY groups the results by the First column: posts_creation_day 24h interval
         ->get();
 
-        dd($posts); // return (array) all records that met havingRaw() condition group by user_id
+        dd($posts); // return (array) of grouped results with given fields: `posts_creation_day`, `total_posts`
     }
 
     /**
