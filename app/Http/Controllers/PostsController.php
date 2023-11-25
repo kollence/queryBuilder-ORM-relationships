@@ -14,7 +14,7 @@ class PostsController extends Controller
     {   
         // havingRaw() is method to add raw sql query for HAVING condition
         $posts = DB::table('posts')
-        ->selectRaw('user_id, SUM(min_to_read) as total_time') // sum() avg() count()...
+        ->select('user_id', DB::raw('SUM(min_to_read) as total_time')) // select() accepts params and not raw sql query
         ->groupBy('user_id')
         ->havingRaw('SUM(min_to_read) < 8') // HAVING condition `SUM(min_to_read) < 8`
         ->get();
