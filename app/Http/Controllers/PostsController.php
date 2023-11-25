@@ -14,10 +14,11 @@ class PostsController extends Controller
     public function index()
     {   
         $posts = DB::table('posts')
-        ->orderBy('created_at', 'desc') // default is ASC
+        ->orderBy('created_at', 'desc') // second param DESC
+        ->orderBy('min_to_read') // default is ASC
         ->get();
-        
-        dd($posts); // return collection ordered by column `created_at` DESC 
+
+        dd($posts); // return collection ordered by column `created_at` DESC with column `min_to_read` as ASC
     }
 
     /**
