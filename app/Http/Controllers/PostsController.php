@@ -10,21 +10,19 @@ class PostsController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
     public function index()
     {   
-        // I want to take average from column min_to_read and group them by users that have created that posts
-        // use raw SQL query add AVG for min_to_read column with alias average_time_to_read
+        $fullTextOfColumn = 'Quidem nemo veritatis possimus laudantium odit.';
+        // $posts = DB::table('posts')
+        // ->select('title', 'content', 'excerpt') // Select the columns you need
+        // ->whereRaw("MATCH(title, content, excerpt) AGAINST(? IN BOOLEAN MODE)", [$fullTextOfColumn])
+        // ->get();
         $posts = DB::table('posts')
-        ->select("user_id", DB::raw('AVG(min_to_read) as average_time_to_read')) // select() accepts params and for raw sql query you need to pass DB::raw()
-        // First column: user_id
-        // Second column: average_time_to_read
-        // DB::raw raw SQL to take AVG from column min_to_read
-
-        ->groupByRaw('user_id')
-        // GROUP BY RAW accepts raw SQL for query string for `GROUP BY`
+        ->whereFullText('content', $fullTextOfColumn)
         ->get();
 
-        dd($posts); // return (array) of grouped results with given fields: (int)`user_id`, (float)`average_time_to_read`
+        dd($posts); // return 
     }
 
     /**
