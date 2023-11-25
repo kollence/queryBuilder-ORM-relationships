@@ -12,12 +12,14 @@ class PostsController extends Controller
      */
     public function index()
     {   
-        // whereRaw() is method to use raw sql query for WHERE condition
+        // havingRaw() is method to add raw sql query for HAVING condition
         $posts = DB::table('posts')
-        ->whereRaw('id BETWEEN 100 AND 200 AND (id < 103 OR id > 105)') // raw SQL for WHERE id BETWEEN 100 AND 200 AND (id < 103 OR id > 105)
+        ->selectRaw('user_id, SUM(min_to_read) as total_time') // sum() avg() count()...
+        ->groupBy('user_id')
+        ->havingRaw('SUM(min_to_read) < 8') // HAVING condition `SUM(min_to_read) < 8`
         ->get();
 
-        dd($posts); // return collection
+        dd($posts); // return (array) all records that met havingRaw() condition group by user_id
     }
 
     /**
