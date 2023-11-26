@@ -13,12 +13,15 @@ class PostsController extends Controller
     
     public function index()
     {   
-        // paginate() to divide a large set of data into small chunks of pages
+        // simplePaginate() to divide a large set of data into small chunks of pages
+        // GOOD if you work with large data sets. More officiant then paginate()
+        // USE LESS MEMORY than paginate()
         $posts = DB::table('posts')
         ->where('is_published', true)
         // 1: num of rows per page. 2: columns. 3: name you want page to be called= default page
-        ->paginate(10, ['title', 'excerpt', 'created_at'], 'product'); // param, number of records per page
+        ->simplePaginate(10); // param same as paginate().
 
+        // $post->links() will now have just two button <<previous & next>>
         return view('posts.index', ['posts' => $posts]);
     }
 
