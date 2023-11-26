@@ -13,15 +13,18 @@ class PostsController extends Controller
     
     public function index()
     {   
-        // simplePaginate() to divide a large set of data into small chunks of pages
-        // GOOD if you work with large data sets. More officiant then paginate()
-        // USE LESS MEMORY than paginate()
+        // cursorPaginate() use cursor or pointer to navigate set of data
+        // Data is retrieved in smaller chunks rather then all at once.
+        // USE LESS MEMORY than paginate() and simplePaginate()
+        // NEED ORDER BY because cursorPaginate() navigate through ordered data set
+        // BAD less intuitive 
         $posts = DB::table('posts')
+        ->orderBy('created_at', 'desc') // NEED to specify order by in which order will be data set be retrieved.
+                                        // without of it cursor will not know how to properly navigate through data set.
         ->where('is_published', true)
-        // 1: num of rows per page. 2: columns. 3: name you want page to be called= default page
-        ->simplePaginate(10); // param same as paginate().
+        ->cursorPaginate(5); // param same as paginate().
 
-        // $post->links() will now have just two button <<previous & next>>
+        // $post->links() return ?cursor= hashed identifier 
         return view('posts.index', ['posts' => $posts]);
     }
 
