@@ -12,13 +12,14 @@ class PostsController extends Controller
      */
     
     public function index()
-    {   
+    {   $role = 'user'; // NOT PASS
+        // $role = 'admin'; // PASS
         // when() used for conditional clause.
         // Simplicity cleaner and add conditions only when necessary.
         // Flexibility. Can be used in various situations.
         // :( Can impact performance 
         $posts = DB::table('posts')
-        ->when(function ($query) { // just callback function will always run. but you can pass first argument as (bool)
+        ->when($role == 'admin',function ($query) { // if first parameter was met (bool) callback function will run.
             return $query->where('title', 'like', '%' . request('search') . '%');// Return collection if where() met condition or it will return all from collection
             // return $query->where('is_published', true);                          //Returns collection only if where() met condition or it will be empty collection
             // return $query->whereFullText('content', request('c'));               //Returns collection only if where() met condition or it will be empty collection
