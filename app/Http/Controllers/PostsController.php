@@ -13,19 +13,14 @@ class PostsController extends Controller
     
     public function index()
     {   
-        // reorder() remove existing order constrains from query
-        // GOOD FOR if you want to apply different order to result set
+        // paginate() to divide a large set of data into small chunks of pages
         $posts = DB::table('posts')
         ->when(function ($query) { 
-            return $query->where('title', 'like', '%' . request('search') . '%');// Return collection if where() met condition or it will return all from collection
-            // return $query->where('is_published', true);                          //Returns collection only if where() met condition or it will be empty collection
-            // return $query->whereFullText('content', request('c'));               //Returns collection only if where() met condition or it will be empty collection
-        });
+            return $query->where('is_published', false);
+        })
+        ->paginate(10); // param, number of records per page
 
-        // $posts = $posts->reorder('id', 'desc')->get(); reorder by id DESC
-        $posts = $posts->reorder('title')->get(); // default ASC
-
-        dd($posts); // return reordered collection.
+        dd($posts); // return paginated collection.
     }
 
     /**
