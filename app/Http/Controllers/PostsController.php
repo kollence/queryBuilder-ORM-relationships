@@ -16,6 +16,8 @@ class PostsController extends Controller
         // limit($number) Used to LIMIT the number of rows returned by a query.
         // $number is argument that receives the number of rows you want to limit.
         $posts = DB::table('posts')
+        ->selectRaw("DATE_FORMAT(DATE_ADD(created_at, INTERVAL 4 HOUR), '%Y-%m-%d %H:00:00') AS posts_creation_day, COUNT(*) AS total_posts")
+        ->groupBy('posts_creation_day')
         ->limit(10) //Limit for 10 rows
         ->get();
         dd($posts); // return collection that are limited on some amount
