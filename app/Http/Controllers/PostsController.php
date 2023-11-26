@@ -16,7 +16,8 @@ class PostsController extends Controller
         // paginate() to divide a large set of data into small chunks of pages
         $posts = DB::table('posts')
         ->where('is_published', true)
-        ->paginate(10); // param, number of records per page
+        // 1: num of rows per page. 2: columns. 3: name you want page to be called= default page
+        ->paginate(10, ['title', 'excerpt', 'created_at'], 'product'); // param, number of records per page
 
         return view('posts.index', ['posts' => $posts]);
     }
