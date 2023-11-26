@@ -15,12 +15,10 @@ class PostsController extends Controller
     {   
         // paginate() to divide a large set of data into small chunks of pages
         $posts = DB::table('posts')
-        ->when(function ($query) { 
-            return $query->where('is_published', false);
-        })
+        ->where('is_published', true)
         ->paginate(10); // param, number of records per page
 
-        dd($posts); // return paginated collection.
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
