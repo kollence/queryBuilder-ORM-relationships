@@ -12,25 +12,13 @@ class PostsController extends Controller
      */
     
     public function index()
-    {   // 1 word
-        $word = 'Quidem';
-        // 2 paragraph 
-        $paragraph = 'nemo odit';
-        // orWhereFullText() that can be chained to whereFullText() [Full Text Indexes] is made for searching words, phrases, and sentences in text columns.
-        // Best for searching a large amount of text. Maybe for Blog or Search Engine
-        // Adds full text to OR WHERE clause for column that have [FULL TEXT INDEXES]
+    {   
+        // limit($number) Used to LIMIT the number of rows returned by a query.
+        // $number is argument that receives the number of rows you want to limit.
         $posts = DB::table('posts')
-        ->whereFullText('content', $word) // check for $word in `content` column
-        ->OrWhereFullText('content', $paragraph) // check for $paragraph in `content` column
+        ->limit(10) //Limit for 10 rows
         ->get();
-
-        // $posts->toSql();                                          flags:IN BOOLEAN MODE                                               flags:IN BOOLEAN MODE
-        // SELECT * FROM `posts` WHERE MATCH (`content`) AGAINST ('Quidem' IN NATURAL LANGUAGE MODE) OR MATCH (`content`) AGAINST ('nemo odit' IN NATURAL LANGUAGE MODE)
-
-        // [NATURAL LANGUAGE MODE] is feature of full text search
-        // that allows users to search for words and phrases in natural language syntax
-        // that ignores word order and word capitalization.
-        dd($posts); // return collection whit anything that matches WHERE $word OR WHERE $paragraph in column `content`
+        dd($posts); // return collection that are limited on some amount
     }
 
     /**
