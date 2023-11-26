@@ -12,13 +12,17 @@ class PostsController extends Controller
      */
     
     public function index()
-    {   
-        // Same as orderedBy('title', 'desc') but cleaner
+    {   // 1 word
+        // 2 paragraph 
+        $fullText = '1 Quidem, 2 nemo veritatis possimus laudantium odit';
+        // whereFullText() [Full Text Indexes] is made for searching words, phrases, and sentences in text columns.
+        // Best for searching a large amount of text. Maybe for Blog or Search Engine
+        // Adds full text to WHERE clause for column that have [FULL TEXT INDEXES]
         $posts = DB::table('posts')
-        ->latest('title') // pass column as argument to return collection ordered by column `title` DESC
+        ->whereFullText('content', $fullText) // we set in migration fullText() for `content` column
         ->get();
 
-        dd($posts); // return collection ordered by column `title` DESC
+        dd($posts); // return collection whit anything that matches $fullText
     }
 
     /**
