@@ -13,14 +13,16 @@ class PostsController extends Controller
     
     public function index()
     {   
-        // limit($number) Used to LIMIT the number of rows returned by a query.
-        // $number is argument that receives the number of rows you want to limit.
+        // offset($number) Used to offset the number of rows by skipping them from beginning of collection.
+        // $number is argument that receives the number of rows you want to skip.
+        // It is often used in conjunction with the limit method to paginate through a set of records.
         $posts = DB::table('posts')
-        ->selectRaw("DATE_FORMAT(DATE_ADD(created_at, INTERVAL 4 HOUR), '%Y-%m-%d %H:00:00') AS posts_creation_day, COUNT(*) AS total_posts")
-        ->groupBy('posts_creation_day')
-        ->limit(10) //Limit for 10 rows
+        ->where('id', '>', 500) // where(column, operator, value)
+        ->offset(10) //offset for 10 rows and start from id:511
+        ->limit(10) //limit for 10 rows end with id:520
         ->get();
-        dd($posts); // return collection that are limited on some amount
+
+        dd($posts); // return collection that are skipped 10 rows from beginning of collection.
     }
 
     /**
