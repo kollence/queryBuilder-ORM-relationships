@@ -12,21 +12,20 @@ class PostsController extends Controller
      */
     
     public function index()
-    {   $role = 'user'; // NOT PASS
-        // $role = 'admin'; // PASS
-        // when() used for conditional clause.
-        // Simplicity cleaner and add conditions only when necessary.
-        // Flexibility. Can be used in various situations.
-        // :( Can impact performance 
+    {   
+        // reorder() remove existing order constrains from query
+        // GOOD FOR if you want to apply different order to result set
         $posts = DB::table('posts')
-        ->when($role == 'admin',function ($query) { // if first parameter was met (bool) callback function will run.
+        ->when(function ($query) { 
             return $query->where('title', 'like', '%' . request('search') . '%');// Return collection if where() met condition or it will return all from collection
             // return $query->where('is_published', true);                          //Returns collection only if where() met condition or it will be empty collection
             // return $query->whereFullText('content', request('c'));               //Returns collection only if where() met condition or it will be empty collection
-        })
-        ->get();
+        });
 
-        dd($posts); // return empty collection or if some of where() condition were met.
+        // $posts = $posts->reorder('id', 'desc')->get(); reorder by id DESC
+        $posts = $posts->reorder('title')->get(); // default ASC
+
+        dd($posts); // return reordered collection.
     }
 
     /**
