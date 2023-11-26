@@ -13,16 +13,19 @@ class PostsController extends Controller
     
     public function index()
     {   
-        // offset($number) Used to offset the number of rows by skipping them from beginning of collection.
-        // $number is argument that receives the number of rows you want to skip.
-        // It is often used in conjunction with the limit method to paginate through a set of records.
+        // when() used for conditional clause.
+        // Simplicity cleaner and add conditions only when necessary.
+        // Flexibility. Can be used in various situations.
+        // :( Can impact performance 
         $posts = DB::table('posts')
-        ->where('id', '>', 500) // where(column, operator, value)
-        ->offset(10) //offset for 10 rows and start from id:511
-        ->limit(10) //limit for 10 rows end with id:520
+        ->when(function ($query) { // just callback function will always run. but you can pass first argument as (bool)
+            return $query->where('title', 'like', '%' . request('search') . '%');// Return collection if where() met condition or it will return all from collection
+            // return $query->where('is_published', true);                          //Returns collection only if where() met condition or it will be empty collection
+            // return $query->whereFullText('content', request('c'));               //Returns collection only if where() met condition or it will be empty collection
+        })
         ->get();
 
-        dd($posts); // return collection that are skipped 10 rows from beginning of collection.
+        dd($posts); // return empty collection or if some of where() condition were met.
     }
 
     /**
