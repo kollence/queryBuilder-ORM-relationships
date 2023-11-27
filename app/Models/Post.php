@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
     // OVERWRITE  $table name that will refer to the table in the database
     protected $table = 'users'; // Post::all() return users
-
+    protected $guarded = [];
     // CHANGE primary key of object model (if you want to use custom key for model)
     protected $primaryKey = 'email'; // Post::find("douglas.kilback@example.com") return single user with email douglas.kilback@example.com
 
@@ -19,4 +19,7 @@ class Post extends Model
 
     // CHANGING the TYPE of the PRIMARY KEY
     protected $keyType = 'string'; // Tell Eloquent treat primary key as string and not as integer
+
+    // DISABLE TIMESTAMPS
+    public $timestamps = false; // Tell Eloquent not to automatically manage `created_at` & `updated_at` fields
 }
