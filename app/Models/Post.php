@@ -8,25 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    // OVERWRITE  $table name that will refer to the table in the database
-    protected $table = 'users'; // Post::all() return users
+
     protected $guarded = [];
-    // CHANGE primary key of object model (if you want to use custom key for model)
-    protected $primaryKey = 'email'; // Post::find("douglas.kilback@example.com") return single user with email douglas.kilback@example.com
 
-    // INCREMENTING PROPERTY changing auto increment for the primary key. Default assumed it is `id`
-    public $incrementing = false; // Tell Eloquent that the primary key is not auto-incrementing when new data is inserted to database
+    // DEFAULT ATTRIBUTES will be set on every new model and it will have default key value pair passed to it.
+    protected $attributes = [
+        'user_id' => 1,
+        'content' => 'Write something cool!',
+        'is_published' => false,
+        'min_to_read' => 0,
+    ];
+    // ON CREATION WILL DO THIS
 
-    // CHANGING the TYPE of the PRIMARY KEY
-    protected $keyType = 'string'; // Tell Eloquent treat primary key as string and not as integer
+    // 1. Create
+        // Post::create([ 'slug'=> 'small-thing', 'title'=> 'Small Thing', 'excerpt'=>'izes mi patku']);
+        
+    // 2. Created with default attributes
+        // user_id: 1,                        
+        // content: "Write something cool!",  
+        // is_published: false,               
+        // min_to_read: 0,                    
+        // slug: "small-thing",               
+        // title: "Small Thing",              
+        // excerpt: "izes mi patku",          
+        // updated_at: "2023-11-27 17:00:11", 
+        // created_at: "2023-11-27 17:00:11", 
+        // id: 1110,                          
 
-    // DISABLE TIMESTAMPS
-    // public $timestamps = false; // Tell Eloquent not to automatically manage `created_at` & `updated_at` fields
-
-    // CHANGE DATE FORMAT default: Y-m-d H:i:s. Determines how date attributes are stored in the database
-    protected $dateFormat = 'U'; // Tell Eloquent to use UNIX timestamp format-"1701101518"
-    
-    // CHANGE NAME FIELDS FOR TIMESTAMPS
-    const CREATED_AT = 'creation_date'; // change `created_at` to `creation_date`
-    const UPDATED_AT = 'updated_date';  // change `updated_at` to `updated_date`
-}
