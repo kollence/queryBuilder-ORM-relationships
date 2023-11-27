@@ -25,5 +25,8 @@ class Post extends Model
 
     // CHANGE DATE FORMAT default: Y-m-d H:i:s. Determines how date attributes are stored in the database
     protected $dateFormat = 'U'; // Tell Eloquent to use UNIX timestamp format-"1701101518"
-
+    
+    // CHANGE NAME FIELDS FOR TIMESTAMPS
+    const CREATED_AT = 'creation_date'; // change `created_at` to `creation_date`
+    const UPDATED_AT = 'updated_date';  // change `updated_at` to `updated_date`
 }
