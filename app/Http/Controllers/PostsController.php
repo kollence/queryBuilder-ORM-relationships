@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -36,7 +37,8 @@ class PostsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::find($id); // finds by id
+        dd($post); // return post or null
     }
 
     /**
