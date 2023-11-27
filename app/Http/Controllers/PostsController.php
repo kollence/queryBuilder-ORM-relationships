@@ -37,8 +37,9 @@ class PostsController extends Controller
      */
     public function show(string $id)
     {
-        $post = Post::firstWhere('id', $id); // return first row that met condition or return null
-        dd($post); // return post or null
+        $post = Post::where('slug', $id) // what ever is condition it will return post or throw Exception
+        ->firstOrFail(); // return first row that met condition or throw Exception
+        dd($post); // return post or throw Exception
         
     }
 
