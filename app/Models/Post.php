@@ -12,26 +12,12 @@ class Post extends Model
     protected $guarded = [];
 
     // DEFAULT ATTRIBUTES will be set on every new model and it will have default key value pair passed to it.
+    // Good when work with FORMS and API Requests
+    // If user don`t provide any value for the attribute, then it will be set with default value.
     protected $attributes = [
         'user_id' => 1,
         'content' => 'Write something cool!',
         'is_published' => false,
         'min_to_read' => 0,
-    ];
-    // ON CREATION WILL DO THIS
-
-    // 1. Create
-        // Post::create([ 'slug'=> 'small-thing', 'title'=> 'Small Thing', 'excerpt'=>'izes mi patku']);
-        
-    // 2. Created with default attributes
-        // user_id: 1,                        
-        // content: "Write something cool!",  
-        // is_published: false,               
-        // min_to_read: 0,                    
-        // slug: "small-thing",               
-        // title: "Small Thing",              
-        // excerpt: "izes mi patku",          
-        // updated_at: "2023-11-27 17:00:11", 
-        // created_at: "2023-11-27 17:00:11", 
-        // id: 1110,                          
-
+    ];                          
+}
