@@ -10,4 +10,7 @@ class Post extends Model
     use HasFactory;
     // OVERWRITE  $table name that will refer to the table in the database
     protected $table = 'users'; // Post::all() return users
+
+    // CHANGE primary key of object model (if you want to use custom key for model)
+    protected $primaryKey = 'email'; // Post::find("douglas.kilback@example.com") return single user with email douglas.kilback@example.com
 }
