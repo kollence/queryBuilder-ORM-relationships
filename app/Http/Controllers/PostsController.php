@@ -35,12 +35,9 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post) // DEFAULT match passed value with `id`
     {
-        $post = Post::where('slug', $id) // what ever is condition it will return post or throw Exception
-        ->firstOrFail(); // return first row that met condition or throw Exception
-        dd($post); // return post or throw Exception
-        
+        dd($post); // return post or throw Exception NOT FOUND
     }
 
     /**
