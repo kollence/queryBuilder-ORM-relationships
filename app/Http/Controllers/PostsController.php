@@ -37,8 +37,8 @@ class PostsController extends Controller
      */
     public function show(string $id)
     {
-        $post = Post::find($id); // finds by id
-        dd($post); // return post or null
+        $post = Post::findOrFail($id); // finds by id or on fail throw Exception
+        dd($post); // return post or throw Exception
     }
 
     /**
