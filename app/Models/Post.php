@@ -21,5 +21,9 @@ class Post extends Model
     protected $keyType = 'string'; // Tell Eloquent treat primary key as string and not as integer
 
     // DISABLE TIMESTAMPS
-    public $timestamps = false; // Tell Eloquent not to automatically manage `created_at` & `updated_at` fields
+    // public $timestamps = false; // Tell Eloquent not to automatically manage `created_at` & `updated_at` fields
+
+    // CHANGE DATE FORMAT default: Y-m-d H:i:s. Determines how date attributes are stored in the database
+    protected $dateFormat = 'U'; // Tell Eloquent to use UNIX timestamp format-"1701101518"
+
 }
