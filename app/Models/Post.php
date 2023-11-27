@@ -16,4 +16,7 @@ class Post extends Model
 
     // INCREMENTING PROPERTY changing auto increment for the primary key. Default assumed it is `id`
     public $incrementing = false; // Tell Eloquent that the primary key is not auto-incrementing when new data is inserted to database
+
+    // CHANGING the TYPE of the PRIMARY KEY
+    protected $keyType = 'string'; // Tell Eloquent treat primary key as string and not as integer
 }
