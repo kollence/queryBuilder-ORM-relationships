@@ -21,7 +21,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -29,7 +29,17 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $post = new Post;
+        $post->user_id = $request->user_id;
+        $post->title = $request->title;
+        $post->slug = $request->slug;
+        $post->content = $request->content;
+        $post->excerpt = $request->excerpt;
+        $post->min_to_read = $request->min_to_read;
+
+        $post->save();
+        dd($post);
     }
 
     /**
