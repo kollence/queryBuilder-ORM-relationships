@@ -18,7 +18,7 @@ class PostsController extends Controller
         // $posts = DB::table('posts')->get(); // retrieve all the posts from the database but little bit faster with Query Builder
         //  $posts = Post::paginate(10); // paginate the posts
         //  $posts = Post::simplePaginate(10); // paginate the posts
-         $posts = Post::cursorPaginate(10); // paginate the posts using cursor as pointer to next set. GOOD for large amount of data
+         $posts = Post::orderBy('id', 'desc')->cursorPaginate(10); // paginate the posts using cursor as pointer to next set. GOOD for large amount of data
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -69,9 +69,8 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        // dd($post);
-        $post->title = $request->title;
-        $post->save();
+        $post->update($request->all());
+        return redirect()->route('posts.index');
     }
 
     /**
