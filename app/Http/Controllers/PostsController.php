@@ -29,17 +29,18 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        // fill() object with request data.
         $post = new Post;
-        $post->user_id = $request->user_id;
-        $post->title = $request->title;
-        $post->slug = $request->slug;
-        $post->content = $request->content;
-        $post->excerpt = $request->excerpt;
-        $post->min_to_read = $request->min_to_read;
-
-        $post->save();   // you can proceed with processing your script
-        dd($post->title);// return property of the model
+        $post->fill([ // accepts array key-column name. value-data you want to save 
+            'user_id' => $request->user_id,
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'content' => $request->content,
+            'excerpt' => $request->excerpt,
+            'min_to_read' => $request->min_to_read,
+        ]);
+        
+        dd($post->save());// return true on success or QueryException
     }
 
     /**
