@@ -68,7 +68,7 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Post $post)
-    {   // Track changes that are not applied 
+    {   // Track changes on user input and data in table and compare them
         $post->title = "Check changes on title if value has been set to different value";
 
         // (bool) isDirty() check if attribute of MODEL has been changed before save
