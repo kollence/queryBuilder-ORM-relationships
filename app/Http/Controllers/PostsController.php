@@ -29,9 +29,8 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        // fill() object with request data.
-        $post = new Post;
-        $post->fill([ // accepts array key-column name. value-data you want to save 
+        // create() 1:Creates a new instance of Model. 2:Assign values to new Modal properties. 3:Call save() method 4:Return the created object from DB
+        $post = Post::create([ // accepts array key-column name. value-data you want to save 
             'user_id' => $request->user_id,
             'title' => $request->title,
             'slug' => $request->slug,
@@ -40,7 +39,7 @@ class PostsController extends Controller
             'min_to_read' => $request->min_to_read,
         ]);
         
-        dd($post->save());// return true on success or QueryException
+        dd($post);// return whole newly created object from DB on success or QueryException
     }
 
     /**
