@@ -38,8 +38,8 @@ class PostsController extends Controller
         $post->excerpt = $request->excerpt;
         $post->min_to_read = $request->min_to_read;
 
-        $post->save();
-        dd($post);
+        $post->save();   // you can proceed with processing your script
+        dd($post->title);// return property of the model
     }
 
     /**
