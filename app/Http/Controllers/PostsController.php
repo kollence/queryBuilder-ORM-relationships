@@ -69,7 +69,8 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $post->update($request->all());
+        $posts = Post::where('is_published', false)->update(['is_published' => true]);
+        dd($posts); // return number of affected rows
         return redirect()->route('posts.index');
     }
 
