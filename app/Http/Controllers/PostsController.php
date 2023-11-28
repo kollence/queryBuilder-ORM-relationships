@@ -35,14 +35,8 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {                   
-        // firstOrNew() 1:Checks if first param exists in DB. If not return NEW MODEL with fill() data if does not then RETURN THAT MATCHED OBJECT 
-        // 2:Return the new instance of MODEL or one that matched first param.
-        // 3:Not storing
-        $post = Post::firstOrNew(
-            [ // accepts array key-column name. value-data that you want to check if already exists
-                'title' => $request->title,
-            ],
-            [ // accepts array key-column name. value-data you want to persist 
+        
+        $post = Post::create([ 
             'user_id' => $request->user_id,
             'title' => $request->title,
             'slug' => $request->slug,
@@ -73,9 +67,11 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        // dd($post);
+        $post->title = $request->title;
+        $post->save();
     }
 
     /**
