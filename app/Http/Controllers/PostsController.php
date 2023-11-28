@@ -34,9 +34,15 @@ class PostsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // create() 1:Creates a new instance of Model. 2:Assign values to new Modal properties. 3:Call save() method 4:Return the created object from DB
-        $post = Post::create([ // accepts array key-column name. value-data you want to save 
+    {                   
+        // firstOrCreate() 1:Checks if first param exists in DB. If not CREATE if does RETURN THAT MATCHED OBJECT 
+        // 2:Return the created object from DB or one that matched first param.
+        // Post::where('title', 'Check if title exists')->first() ?: Post::create()
+        $post = Post::firstOrCreate(
+            [ // accepts array key-column name. value-data that you want to check if already exists
+                'title' => $request->title,
+            ],
+            [ // accepts array key-column name. value-data you want to save 
             'user_id' => $request->user_id,
             'title' => $request->title,
             'slug' => $request->slug,
@@ -45,7 +51,7 @@ class PostsController extends Controller
             'min_to_read' => $request->min_to_read,
         ]);
         
-        dd($post);// return whole newly created object from DB on success or QueryException
+        dd($post);// return whole newly created object from DB or matched object
     }
 
     /**
