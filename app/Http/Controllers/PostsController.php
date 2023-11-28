@@ -35,14 +35,14 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {                   
-        // firstOrCreate() 1:Checks if first param exists in DB. If not CREATE if does RETURN THAT MATCHED OBJECT 
-        // 2:Return the created object from DB or one that matched first param.
-        // Post::where('title', 'Check if title exists')->first() ?: Post::create()
-        $post = Post::firstOrCreate(
+        // firstOrNew() 1:Checks if first param exists in DB. If not return NEW MODEL with fill() data if does not then RETURN THAT MATCHED OBJECT 
+        // 2:Return the new instance of MODEL or one that matched first param.
+        // 3:Not storing
+        $post = Post::firstOrNew(
             [ // accepts array key-column name. value-data that you want to check if already exists
                 'title' => $request->title,
             ],
-            [ // accepts array key-column name. value-data you want to save 
+            [ // accepts array key-column name. value-data you want to persist 
             'user_id' => $request->user_id,
             'title' => $request->title,
             'slug' => $request->slug,
@@ -51,7 +51,7 @@ class PostsController extends Controller
             'min_to_read' => $request->min_to_read,
         ]);
         
-        dd($post);// return whole newly created object from DB or matched object
+        dd($post);// return new Model with filled data or matched object
     }
 
     /**
