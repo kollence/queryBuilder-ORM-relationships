@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
@@ -13,7 +14,12 @@ class PostsController extends Controller
     
     public function index()
     {
-        //
+        // $posts = Post::all(); // retrieve all the posts from the database
+        // $posts = DB::table('posts')->get(); // retrieve all the posts from the database but little bit faster with Query Builder
+        //  $posts = Post::paginate(10); // paginate the posts
+        //  $posts = Post::simplePaginate(10); // paginate the posts
+         $posts = Post::cursorPaginate(10); // paginate the posts using cursor as pointer to next set. GOOD for large amount of data
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
