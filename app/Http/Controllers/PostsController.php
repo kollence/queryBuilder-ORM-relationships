@@ -78,7 +78,7 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {   
-        $post->delete();
+        $post->delete(); // now it will not delete from DB it will just fill field `deleted_at`
         return redirect()->route('posts.index');
     }
 }
