@@ -18,7 +18,7 @@ class PostsController extends Controller
         // $posts = DB::table('posts')->get(); // retrieve all the posts from the database but little bit faster with Query Builder
         //  $posts = Post::paginate(10); // paginate the posts
         //  $posts = Post::simplePaginate(10); // paginate the posts
-         $posts = Post::orderBy('id', 'desc')->cursorPaginate(10); // paginate the posts using cursor as pointer to next set. GOOD for large amount of data
+         $posts = Post::withTrashed()->orderBy('id', 'desc')->cursorPaginate(10); // withThrashed() chained on query will return collection including `deleted_at` column
         return view('posts.index', ['posts' => $posts]);
     }
 
