@@ -850,7 +850,7 @@
                         <input class="m-5" type="text" name="excerpt" /><br>
                         <input class="m-5" type="text" name="content" /><br>
                         <input class="m-5" type="text" name="min_to_read" /><br>
-                        <input type="hidden" name="user_id" value="1">
+                        <input type="hidden" name="user_id" value="11">
                         <button type="submit">Submit</button>
                     </form>
 

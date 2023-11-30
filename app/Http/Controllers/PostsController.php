@@ -69,6 +69,22 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {   
+        // updateOrCreate() update if exist, create if doesn`t exists
+        // 2 arguments are taken.
+        
+        $post = Post::updateOrCreate(
+            [// 1:first argument is array of data how would record be searched for in db
+                'id' => 1111 // if this key - value exist in DB it will update, if not, it will create new record
+            ],
+            [// 2:second argument is array of data whit values you want to update or create
+                'user_id' => $request->user_id,
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'content' => $request->content,
+                'excerpt' => $request->excerpt,
+                'min_to_read' => $request->min_to_read,
+            ]
+        );
         // return redirect()->route('posts.index');
     }
 
