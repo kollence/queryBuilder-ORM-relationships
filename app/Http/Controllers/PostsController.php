@@ -81,4 +81,10 @@ class PostsController extends Controller
         $post->delete(); // now it will not delete from DB it will just fill field `deleted_at`
         return redirect()->route('posts.index');
     }
+
+    public function removeAllFromSoftDeleted()
+    {
+        Post::onlyTrashed()->restore();
+        return redirect()->route('posts.index');
+    }
 }
