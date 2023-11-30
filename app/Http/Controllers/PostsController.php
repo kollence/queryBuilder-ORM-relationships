@@ -77,10 +77,10 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {   // truncate deletes whole table rows posts
-        $post = Post::truncate();
-        dd($post); // return Eloquent Builder
+    public function destroy(Post $post)
+    {   // destroy() deletes one or multiple row(s) based on passed array of id(s)
+        // dd(Post::destroy([109, 108])); // return sum of affected rows that has been deleted
+        Post::destroy([107, 106]); // delete multiple rows
         return redirect()->route('posts.index');//redirect
     }
 }
