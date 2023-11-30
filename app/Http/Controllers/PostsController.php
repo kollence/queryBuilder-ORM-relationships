@@ -69,25 +69,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {   
-        // upsert() update if exist, create if doesn`t exists
-        // 2 arguments are taken.
-        
-        $post = Post::upsert(
-            [// 1:first argument is array of data whit values you want to update or create
-                'id' => 100,
-                'user_id' => $request->user_id,
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'content' => $request->content,
-                'excerpt' => $request->excerpt,
-                'min_to_read' => $request->min_to_read,
-            ],
-            [// 2:second argument is array of key(s) on which columns values from 1:first argument should be matched 
-                'id', // if values for this column name are matched with 1:first argument values it will update, else it will insert
-                // 'slug'
-            ]
-        );
-        dd($post);
+        $post->update($request->all());
         return redirect()->route('posts.index');
     }
 
