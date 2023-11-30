@@ -68,32 +68,7 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Post $post)
-    {   // Track changes on user input and data in table and compare them
-        $post->title = "Check changes on title if value has been set to different value";
-
-        // (bool) isDirty() check if attribute of MODEL has been changed before save
-        // isDirty() can accept params as column names to checked or default check all fields
-        // dd($post->isDirty(['title','slug'])); // return true if title has been changed or false if its not - its not same, its dirty
-        // if($post->isDirty()){ // true if changed are made but forgot to save them
-        //     $post->save();
-        // }else{
-        //     echo "You didn`t save changes";
-        // }
-
-        // (bool) isClean() check if all attributes of MODEL has been changed before save
-        // isClean() is same like isDirty() but revers
-        // dd($post->isClean()); // return false if its changed and true if its clean - its the same, its clean
-        // if($post->isClean()){ // false if changed are made but forgot to save them
-        //     echo "You didn`t save changes";
-        // }else{
-        //     $post->save();
-        // }
-
-        // (bool) wasChanged() check if attributes of MODEL has been changed after saving
-        $post->save(); // if data is saved with changes wasChanged() return true if data saved without changes wasChanged() return false
-        dd($post->wasChanged()); // return true if changed are made and false if its not - after saving data
-
-
+    {   
         // return redirect()->route('posts.index');
     }
 
