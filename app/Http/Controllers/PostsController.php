@@ -78,6 +78,6 @@ class PostsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Post::find($id)->delete();
     }
 }
