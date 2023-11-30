@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -76,9 +77,10 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
-    {   // delete row from table post
-        $post->delete(); // return true if success or false on fail
+    public function destroy(string $id)
+    {   // truncate deletes whole table rows posts
+        $post = Post::truncate();
+        dd($post); // return Eloquent Builder
         return redirect()->route('posts.index');//redirect
     }
 }
