@@ -15,10 +15,10 @@ class Post extends Model
 
     protected $guarded = [];
 
-    protected static function booted() // life cycle 
-    {   // addGlobalScope 
-        static::addGlobalScope(new PublishedOnThirtyDaysScope);
-    }
+    // protected static function booted() // life cycle 
+    // {   // addGlobalScope 
+    //     static::addGlobalScope(new PublishedOnThirtyDaysScope);
+    // }
 
     public function prunable(): Builder
     {// using Prunable Trait in Model is grate way to remove outdated data from db

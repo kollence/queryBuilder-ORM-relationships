@@ -14,11 +14,7 @@ class PostsController extends Controller
     
     public function index()
     {
-        // $posts = Post::all(); // retrieve all the posts from the database
-        // $posts = DB::table('posts')->get(); // retrieve all the posts from the database but little bit faster with Query Builder
-        //  $posts = Post::paginate(10); // paginate the posts
-        //  $posts = Post::simplePaginate(10); // paginate the posts
-         $posts = Post::withoutGlobalScopes()->orderBy('id', 'desc')->cursorPaginate(5); // withThrashed() chained on query will return collection including `deleted_at` column
+        $posts = Post::orderBy('id', 'desc')->cursorPaginate(10);
         return view('posts.index', ['posts' => $posts]);
     }
 
