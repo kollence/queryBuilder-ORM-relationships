@@ -96,8 +96,11 @@ class PostsController extends Controller
 
     public function replicatePost()
     {
-        $post = Post::find(109);
-        $post->replicate(); // Will replicate given instance of modal and make new instance with filled data (except `id`)
-
+        $post = Post::find(102);
+        $replicatedWithUnique = $post->replicate()->fill(['title'=>'Unique on DB lvl', 'slug' => 'unique-on-db-as-well']); // Use fill() to overwrite replicated data 
+                                                        // (example: title, slug are unique. CAN`T BE SAME)
+                                                        
+        dd($replicatedWithUnique); // will return new fresh instance of model post with filled data
+        // $replicatedWithUnique->save(); // if you need to save replicated instance
     }
 }

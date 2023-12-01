@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::resource('/posts', PostsController::class);
 Route::get('removeAllFromSoftDeleted', [PostsController::class, 'removeAllFromSoftDeleted']);
 Route::get('removeSingleFromSoftDeleted', [PostsController::class, 'removeSingleFromSoftDeleted'])->name('posts.restore');
+Route::get('replicatePost', [PostsController::class, 'replicatePost'])->name('posts.replicate');
