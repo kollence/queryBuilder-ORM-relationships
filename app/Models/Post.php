@@ -15,7 +15,7 @@ class Post extends Model
     protected $guarded = [];
 
     public function prunable(): Builder
-    {
+    {// using Prunable Trait in Model is grate way to remove outdated data from db
         return static::where('deleted_at', '<=', now()->subMonth());
     }
               

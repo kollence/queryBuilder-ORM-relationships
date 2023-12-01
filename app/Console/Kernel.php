@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // used to define the app command schedule
+        $schedule->command('model:prune')->daily(); 
     }
 
     /**
