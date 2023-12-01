@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\PublishedOnThirtyDaysScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,11 @@ class Post extends Model
     use HasFactory, SoftDeletes, Prunable;
 
     protected $guarded = [];
+
+    protected static function booted() // life cycle 
+    {   // addGlobalScope 
+        static::addGlobalScope(new PublishedOnThirtyDaysScope);
+    }
 
     public function prunable(): Builder
     {// using Prunable Trait in Model is grate way to remove outdated data from db
