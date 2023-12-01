@@ -93,4 +93,11 @@ class PostsController extends Controller
         Post::onlyTrashed()->where('id', 109)->forceDelete();
         return redirect()->route('posts.index');
     }
+
+    public function replicatePost()
+    {
+        $post = Post::find(109);
+        $post->replicate(); // Will replicate given instance of modal and make new instance with filled data (except `id`)
+
+    }
 }
