@@ -13,6 +13,6 @@ class UserBalanceVerifiedScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        // php artisan make:scope UserBalanceVerifiedScope
+        $builder->where('balance', '<=', 5000);
     }
 }
