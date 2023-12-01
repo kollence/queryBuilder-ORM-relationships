@@ -90,7 +90,7 @@ class PostsController extends Controller
 
     public function removeSingleFromSoftDeleted(Post $post)
     {
-        Post::onlyTrashed()->where('id', 109)->restore();
+        Post::onlyTrashed()->where('id', 109)->forceDelete();
         return redirect()->route('posts.index');
     }
 }
