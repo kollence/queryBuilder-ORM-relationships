@@ -18,7 +18,7 @@ class PostsController extends Controller
         // $posts = DB::table('posts')->get(); // retrieve all the posts from the database but little bit faster with Query Builder
         //  $posts = Post::paginate(10); // paginate the posts
         //  $posts = Post::simplePaginate(10); // paginate the posts
-         $posts = Post::withTrashed()->orderBy('id', 'desc')->cursorPaginate(10); // withThrashed() chained on query will return collection including `deleted_at` column
+         $posts = Post::orderBy('id', 'desc')->cursorPaginate(10); // withThrashed() chained on query will return collection including `deleted_at` column
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -85,6 +85,12 @@ class PostsController extends Controller
     public function removeAllFromSoftDeleted()
     {
         Post::onlyTrashed()->restore();
+        return redirect()->route('posts.index');
+    }
+
+    public function removeSingleFromSoftDeleted(Post $post)
+    {
+        Post::onlyTrashed()->where('id', 109)->restore();
         return redirect()->route('posts.index');
     }
 }
