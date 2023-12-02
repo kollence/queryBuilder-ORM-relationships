@@ -24,10 +24,16 @@ class Post extends Model
     {// using Prunable Trait in Model is grate way to remove outdated data from db
         return static::where('deleted_at', '<=', now()->subMonth());
     }
-
-    public function scopePublished(Builder $query)
+    // Local Scope = write reusable query on model
+    public function scopePublished(Builder $query): void
     {
-        return $query->where('is_published', true);
+        $query->where('is_published', true);
+    }
+
+    public function scopeWithUser(Builder $query): void
+    {
+        $query->join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*', 'users.name as author_name');
     }
               
 }
