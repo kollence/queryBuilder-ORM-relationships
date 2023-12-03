@@ -14,10 +14,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    // protected static function booted() // life cycle 
-    // {   // addGlobalScope       // add query to every model instance automatically
-    //     static::addGlobalScope(new UserBalanceVerifiedScope);
-    // }
     /**
      * The attributes that are mass assignable.
      *
