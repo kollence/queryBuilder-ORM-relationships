@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +15,9 @@ class PostsController extends Controller
     
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->cursorPaginate(10);
-        return view('posts.index', ['posts' => $posts]);
+        $tags = Tag::all();
+        $posts = Post::orderBy('id', 'desc')->cursorPaginate(5);
+        return view('posts.index', ['posts' => $posts, 'tags' => $tags]);
     }
 
     /**
@@ -40,8 +42,10 @@ class PostsController extends Controller
             'excerpt' => $request->excerpt,
             'min_to_read' => $request->min_to_read,
         ]);
-        
-        dd($post);// return new Model with filled data or matched object
+
+        // dd($post);// return new Model with filled data or matched object
+        return redirect()->route('posts.index')
+            ->with('success', 'Post created successfully.');
     }
 
     /**
@@ -55,9 +59,10 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        $tags = Tag::all();
+        return view('posts.edit', ['post' => $post, 'tags'=>$tags]);
     }
 
     /**
@@ -93,10 +98,24 @@ class PostsController extends Controller
     public function replicatePost()
     {
         $post = Post::find(102);
-        $replicatedWithUnique = $post->replicate()->fill(['title'=>'Unique on DB lvl', 'slug' => 'unique-on-db-as-well']); // Use fill() to overwrite replicated data 
-                                                        // (example: title, slug are unique. CAN`T BE SAME)
-                                                        
+        $replicatedWithUnique = $post->replicate()->fill(['title' => 'Unique on DB lvl', 'slug' => 'unique-on-db-as-well']); // Use fill() to overwrite replicated data 
+        // (example: title, slug are unique. CAN`T BE SAME)
+
         dd($replicatedWithUnique); // will return new fresh instance of model post with filled data
         // $replicatedWithUnique->save(); // if you need to save replicated instance
+    }
+
+    public function detachTag(Request $request, Post $post)
+    {
+        // dd($request->detach_tag);
+        $post->tags()->detach($request->detach_tag);
+        return redirect()->back();
+    }
+
+    public function attachTag(Request $request, Post $post)
+    {
+        // dd($request->attach_tag);
+        $post->tags()->attach($request->attach_tag);
+        return redirect()->back();
     }
 }
