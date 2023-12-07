@@ -118,4 +118,11 @@ class PostsController extends Controller
         $post->tags()->attach($request->attach_tag);
         return redirect()->back();
     }
+
+    public function updateExistingTag(Request $request, Post $post)
+    {
+        // dd($request->attach_tag);
+        $post->tags()->updateExistingPivot($request->current_tag_value, ['tag_id' => $request->updating_tag_value]);
+        return redirect()->back();
+    }
 }
