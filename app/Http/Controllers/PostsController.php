@@ -14,9 +14,21 @@ class PostsController extends Controller
      */
     
     public function index()
-    {
+    {   // EAGER LOADING is technique to load related data up front (instead of lazy loading)
+        // By using with() method we will load related tags for each post
+        // DB::enableQueryLog(); // WATCH HOW QUERY IS BUILT
+        // $posts = Post::with('tags')->get(); // 1:Eager Loading will load related relationship defined in Model.
+                                            // With each Post in collection will come related tags too by using with() method
+        // EXAMPLE 1: QUERY
+        // dd(DB::getQueryLog());// "query" => "select * from `posts` where `posts`.`deleted_at` is null"
+                                // "query" => "select `tags`.*, `post_tag`.`post_id` as `pivot_post_id`, `post_tag`.`tag_id` as `pivot_tag_id` from `tags` inner join `post_tag` on `tags`.`id` = `post_tag`.`tag_id` where `post_tag`.`post_id` in (100, 101, 102, 103, 104, 105, 107, 109, 111)
+        // dd($posts); // Post #relations: ['tags']
+        // $posts = Post::all(); // 2:Lazy Loading DO NOT load relationships data in front. You need to make additionally QUERY to load relationship data.
+        // EXAMPLE 2: QUERY 
+        // dd(DB::getQueryLog());// "query" => "select * from `posts` where `posts`.`deleted_at` is null"
+        // dd($posts); // Post #relations: []
         $tags = Tag::all();
-        $posts = Post::orderBy('id', 'desc')->cursorPaginate(5);
+        $posts = Post::with('tags')->orderBy('id', 'desc')->cursorPaginate(5);
         return view('posts.index', ['posts' => $posts, 'tags' => $tags]);
     }
 

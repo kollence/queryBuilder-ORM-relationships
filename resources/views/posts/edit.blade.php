@@ -64,7 +64,6 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     Change tag
                 </button>
-                <!-- <form action="{{route('posts.attach_tag', $post->id)}}" method="post"> -->
                     @csrf
                     <ul class="dropdown-menu">
                         @foreach($tags->except($post->tags()->pluck('id')->toArray()) as $update_tag)
@@ -77,11 +76,7 @@
                             </form>
                         </li>
                         @endforeach
-                        <!-- <li>
-                            <button class="btn btn-primary form-control">Submit</button>
-                        </li> -->
                     </ul>
-                <!-- </form> -->
 
 
             </div>
