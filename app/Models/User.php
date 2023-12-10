@@ -8,6 +8,7 @@ use App\Models\Scopes\UserBalanceVerifiedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -55,5 +56,19 @@ class User extends Authenticatable
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class /** , 'user_id', 'id'  */);
+    }
+
+    public function companyOffice(): HasOneThrough
+    {   // Direct association between 2 models through 3 intermediate Model
+        return $this->hasOneThrough(
+            Office::class, // the name of the final model we wish to access
+            Company::class, // the name of the intermediate model.
+            /**              // Optional: 
+             * 'user_id',    // Foreign key on the companies table...
+             * 'company_id', // Foreign key on the offices table...
+             * 'id',         // Local key on the users table...
+             * 'id'          // Local key on the companies table...
+             */
+        );
     }
 }
