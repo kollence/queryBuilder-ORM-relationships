@@ -71,4 +71,16 @@ class User extends Authenticatable
              */
         );
     }
+
+    public function latestJob(): HasOne
+    {              // hasOne relationship between User and Job model where user have many jobs but we only want LATEST one                                           
+        return $this->hasOne(Job::class/** , 'user_id', 'id'  */)->latestOfMany();
+                                                                // Latest Of Many sort `created_at` DESC return only first one 
+    }
+
+    public function oldestJob(): HasOne
+    {              // hasOne relationship between User and Job model where user have many jobs but we only want OLDEST one                                           
+        return $this->hasOne(Job::class/** , 'user_id', 'id'  */)->oldestOfMany();
+                                                                // Oldest Of Many sort `created_at` ASC return only first one 
+    }
 }
