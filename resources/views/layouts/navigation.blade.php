@@ -26,6 +26,9 @@
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('tags.index') ? 'active' : '' }}" href="{{route('tags.index')}}">Tags</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('jobs.index') ? 'active' : '' }}" href="{{route('jobs.index')}}">Jobs</a>
+        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
