@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
@@ -56,4 +57,13 @@ Route::controller(TagsController::class)->group(function () {
     Route::post('tags', 'store');
     Route::put('tags/{tag}', 'update');
     Route::delete('tags/{tag}', 'destroy');
+});
+
+Route::controller(JobsController::class)->group(function () {
+    Route::get('jobs', 'index')->name('jobs.index');
+    Route::get('jobs/{job}', 'show')->name('jobs.show');
+    Route::get('jobs/create', 'create')->name('jobs.create');
+    Route::post('jobs', 'store');
+    Route::put('jobs/{job}', 'update');
+    Route::delete('jobs/{job}', 'destroy');
 });

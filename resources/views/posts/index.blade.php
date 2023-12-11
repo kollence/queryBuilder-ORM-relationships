@@ -38,6 +38,9 @@
             <div class="col-1">
                 <a href="{{route('posts.edit', $post->id)}}" class="btn btn-warning">Edit</a>
             </div>
+            <div class="col-1">
+                <a href="{{route('posts.show', $post->id)}}" class="btn btn-secondary">Show</a>
+            </div>
         </div>
         <div class="card-footer">
             @if($post->tags()->exists())

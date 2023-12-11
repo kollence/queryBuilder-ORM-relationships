@@ -52,7 +52,7 @@ class PostsController extends Controller
      */
     public function show(Post $post) // DEFAULT match passed value with `id`
     {
-        dd($post); // return post or throw Exception NOT FOUND
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
