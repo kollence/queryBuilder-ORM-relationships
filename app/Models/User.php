@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -82,5 +83,10 @@ class User extends Authenticatable
     {              // hasOne relationship between User and Job model where user have many jobs but we only want OLDEST one                                           
         return $this->hasOne(Job::class/** , 'user_id', 'id'  */)->oldestOfMany();
                                                                 // Oldest Of Many sort `created_at` ASC return only first one 
+    }
+
+    public function image(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }
