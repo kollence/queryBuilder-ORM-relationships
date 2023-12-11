@@ -10,6 +10,8 @@
 <div class="card mt-4">
     <h5 class="card-header">{{$post->title}}</h5>
     <div class="card-body">
+    <div class="row">
+        <div class="col-8">
         <h5 class="card-title">creator: {{$post->user->name}}</h5>
         <p class="card-text">{{$post->excerpt}}</p>
         <p class="card-text">created at: {{date('j M Y', strtotime($post->created_at))}}
@@ -18,6 +20,13 @@
         </div>
         </p>
 
+        </div>
+        <div class="col-4">
+            @if($post->image()->exists())
+                <img src="{{$post->image->url}}" class="img-thumbnail" alt="...">
+            @endif
+        </div>
+    </div>
         <div class="row">
             <div class="col-1">
                 <form action="{{route('posts.destroy', $post->id)}}" class="flex justify-right w-full" method="post">

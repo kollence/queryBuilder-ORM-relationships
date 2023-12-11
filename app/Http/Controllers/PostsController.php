@@ -15,7 +15,7 @@ class PostsController extends Controller
     
     public function index()
     {   
-        $posts = Post::with('tags')->orderBy('id', 'desc')->cursorPaginate(5);
+        $posts = Post::with(['tags', 'image'])->orderBy('id', 'desc')->cursorPaginate(5);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -122,6 +122,12 @@ class PostsController extends Controller
     {
         // dd($request->attach_tag);
         $post->tags()->updateExistingPivot($request->current_tag_value, ['tag_id' => $request->updating_tag_value]);
+        return redirect()->back();
+    }
+
+    public function addImage(Request $request, Post $post)
+    {
+        $post->image()->create(['url' => $request->url]);
         return redirect()->back();
     }
 }

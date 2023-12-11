@@ -37,6 +37,7 @@ Route::controller(PostsController::class)->group(function () {
     Route::post('posts/{post}/detach_tag', 'detachTag')->name('posts.detach_tag');
     Route::post('posts/{post}/attach_tag', 'attachTag')->name('posts.attach_tag');
     Route::post('posts/{post}/update_tag', 'updateExistingTag')->name('posts.update_tag');
+    Route::post('posts/{post}/add_image', 'addImage')->name('posts.add_image');
 });
 
 
