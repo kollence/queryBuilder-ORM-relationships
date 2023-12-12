@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/posts', PostsController::class);
+Route::get('removeAllFromSoftDeleted', [PostsController::class, 'removeAllFromSoftDeleted']);
+Route::get('removeSingleFromSoftDeleted', [PostsController::class, 'removeSingleFromSoftDeleted'])->name('posts.restore');
+Route::get('replicatePost', [PostsController::class, 'replicatePost'])->name('posts.replicate');
